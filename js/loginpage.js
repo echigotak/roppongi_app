@@ -1,7 +1,7 @@
 /*** 設定 ***/
 // jp.bygc.roppongiclub
 var senderID = "847766150620";
-var roppongi_host = "http://sample.lnup.jp/roppongi/reg.php";
+var roppongi_host = "http://spynk.com/sample/roppongi/reg.php";
 
 
 var loginpage = {
@@ -96,7 +96,7 @@ var notif = {
 	loginpage.showStatus(e.event);
 	loginpage.showStatus('GCMからの通知を解析しています。');
 	for (v in e) {
-		loginpage.showStatus(v +'::'+e.v);
+		loginpage.showStatus(v +'::'+e[v]);
 	}
 	switch( e.event )
 	{
