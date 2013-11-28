@@ -91,7 +91,7 @@ var notif = {
 	loginpage.showStatus("エラー: " + err.message);
     } 
   } // getNotificationID
- ,onNotificationGCM: function() {
+ ,onNotificationGCM: function(e) {
 	loginpage.showStatus('GCMからの通知を取得しました。');
 	loginpage.showStatus(e.event);
 	loginpage.showStatus('GCMからの通知を解析しています。');
