@@ -66,6 +66,7 @@ var loginpage = {
 	  }
 	  ,error: function(data) {
 		loginpage.showStatus('サーバーとの通信に失敗しました。');
+		loginpage.showStatus(data);
 		console.log('Ajax Error:');
 		console.log(data);
 	  },complete: function(data) {
