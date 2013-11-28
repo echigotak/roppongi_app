@@ -61,8 +61,16 @@ var loginpage = {
 		loginpage.showStatus('サーバーにRegIDを保存しています。');
 	  }
 	  ,success: function(data) {
-		loginpage.showStatus('サーバーにRegIDを保存しました。');
-		loginpage.showStatus('会員IDは「'+data.id+'」です。');
+		for (v in data) loginpage.showStatus(v +'::'+e[data]);
+		switch (data.code) {
+		  case 'success':
+			loginpage.showStatus('サーバーにRegIDを保存しました。');
+			loginpage.showStatus('会員IDは「'+data.id+'」です。');
+			break;
+		  case 'error':
+		  default:
+			loginpage.showStatus('サーバーエラー。');
+		}
 	  }
 	  ,error: function(data) {
 		loginpage.showStatus('サーバーとの通信に失敗しました。');
@@ -96,9 +104,7 @@ var notif = {
 	loginpage.showStatus('GCMからの通知を取得しました。');
 	loginpage.showStatus(e.event);
 	loginpage.showStatus('GCMからの通知を解析しています。');
-	for (v in e) {
-		loginpage.showStatus(v +'::'+e[v]);
-	}
+	for (v in e) loginpage.showStatus(v +'::'+e[v]);
 	switch( e.event )
 	{
 	    case 'registered':
