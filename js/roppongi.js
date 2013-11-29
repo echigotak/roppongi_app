@@ -25,12 +25,12 @@ var roppongi = {
 	if (!this.data) loginpage.getID(roppongi.set);
   }
   ,set: function(data) {
-	this.data = data;
+	roppongi.data = data;
 	utility.dataSet("roppongi", data);
 	roppongi.showID();
   }
   ,showID: function() {
-	$('#kaiin_id').html(this.data.id);
+	$('#kaiin_id').html(roppongi.data.id);
 	$.mobile.changePage("#showid", { transition: "slide"});
   }
 }
@@ -85,8 +85,8 @@ var loginpage = {
 		loginpage.showStatus('サーバーにRegIDを保存しています。');
 	  }
 	  ,success: function(data) {
-		loginpage.showStatus('サーバーとの通信を解析しています。');
-		for (v in data) loginpage.showStatus(v +'::'+data[v]);
+		//loginpage.showStatus('サーバーとの通信を解析しています。');
+		//for (v in data) loginpage.showStatus(v +'::'+data[v]);
 		switch (data.code) {
 		  case 'success':
 			loginpage.showStatus('サーバーにRegIDを保存しました。');
@@ -132,9 +132,9 @@ var notif = {
   } // getNotificationID
  ,onNotificationGCM: function(e) {
 	loginpage.showStatus('GCMからの通知を取得しました。');
-	loginpage.showStatus(e.event);
+	//loginpage.showStatus(e.event);
 	loginpage.showStatus('GCMからの通知を解析しています。');
-	for (v in e) loginpage.showStatus(v +'::'+e[v]);
+	//for (v in e) loginpage.showStatus(v +'::'+e[v]);
 	switch( e.event )
 	{
 	    case 'registered':
