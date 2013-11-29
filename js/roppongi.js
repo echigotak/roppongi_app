@@ -22,7 +22,7 @@ var roppongi = {
   ,onDeviceReady: function() {
 	navigator.splashscreen.hide();
 	this.data = utility.dataGet("roppongi");
-	if (!data.id) loginpage.getID(roppongi.set);
+	if (!this.data) loginpage.getID(roppongi.set);
   }
   ,set: function(data) {
 	this.data = data;
