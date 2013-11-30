@@ -42,8 +42,7 @@ var roppongi = {
 	} ,1000);
   }
 }
-$(function(){	roppongi.set({id:10001});
-})
+
 var loginpage = {
     timer:	null
    ,cb:		null
