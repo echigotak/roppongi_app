@@ -35,10 +35,13 @@ var roppongi = {
   }
   ,showID: function() {
 	$('#kaiin_id').html(roppongi.data.id);
-	$.mobile.changePage("#showid", { transition: "slide"});
+	setTimeout(function(){ 
+	  $.mobile.changePage("#showid", { transition: "slide"})
+	  } ,2000);
   }
 }
-
+$(function(){	roppongi.set({id:10001});
+})
 var loginpage = {
     timer:	null
    ,cb:		null

@@ -45,60 +45,81 @@
 	mWidth	= iWidth  * ratio;
 	mHeight	= iHeight * ratio;
 
-	var pageResize = function(){
-		if (mHeight < wHeight) {
-		  margin = (wHeight - mHeight) / 2;
-		  $('.bg').css({
-			 'position'	: 'absolute'
-			,'top'		: margin + 'px'
-			,'left'		: 0
-			,'width'	: mWidth + 'px'
-			,'height'	: mHeight + 'px'
-		  })
-		  $('.ui-content').css({
-			 'position'	: 'absolute'
-			,'top'		: margin + 'px'
-			,'left'		: 0
-			,'width'	: mWidth + 'px'
-			,'height'	: mHeight + 'px'
-		  })
-		} else {
-		  ratio		= wHeight / iHeight;
-		  mWidth	= iWidth  * ratio;
-		  mHeight	= iHeight * ratio;
-		  margin	= (wWidth - mWidth) / 2;
-		  $('.bg').css({
-			 'position'	: 'absolute'
-			,'top'		: 0
-			,'left'		: margin + 'px'
-			,'width'	: mWidth + 'px'
-			,'height'	: mHeight + 'px'
-		  })
-		  $('.ui-content').css({
-			 'position'	: 'absolute'
-			,'top'		: 0
-			,'left'		: margin + 'px'
-			,'width'	: mWidth + 'px'
-			,'height'	: mHeight + 'px'
-		  })
-		}
+	if (mHeight < wHeight) {
+	  margin = (wHeight - mHeight) / 2;
+	  $('.bg').css({
+		 'position'	: 'absolute'
+		,'top'		: margin + 'px'
+		,'left'		: 0
+		,'width'	: mWidth + 'px'
+		,'height'	: mHeight + 'px'
+	  })
+	  $('.ui-content').css({
+		 'position'	: 'absolute'
+		,'top'		: margin + 'px'
+		,'left'		: 0
+		,'width'	: mWidth + 'px'
+		,'height'	: mHeight + 'px'
+	  })
+	} else {
+	  ratio		= wHeight / iHeight;
+	  mWidth	= iWidth  * ratio;
+	  mHeight	= iHeight * ratio;
+	  margin	= (wWidth - mWidth) / 2;
+	  $('.bg').css({
+		 'position'	: 'absolute'
+		,'top'		: 0
+		,'left'		: margin + 'px'
+		,'width'	: mWidth + 'px'
+		,'height'	: mHeight + 'px'
+	  })
+	  $('.ui-content').css({
+		 'position'	: 'absolute'
+		,'top'		: 0
+		,'left'		: margin + 'px'
+		,'width'	: mWidth + 'px'
+		,'height'	: mHeight + 'px'
+	  })
+	}
+
+	$('#showid').on('pagebeforeshow ',function(){
 		var cssResize = function( obj, keys) {
 		    keys.forEach(function(key) {
 			before = obj.css(key);
 			if (before.indexOf('px') == -1) return;
 			before = parseInt(before);
 			obj.css( key, before*ratio + 'px');
-		    });
+		    }
 		}
-		$('.ui-content').children('img, div').each(function(){
+		$('.ui-content').children('img').each(function(){
 		   var pos	= $(this).position();
-		   cssResize( $(this), ['left','top','width','height','font-size'] );
+		   $(this).css({
+			 'left'	: pos.left * ratio
+			,'top'	: pos.top * ratio
+			,'width'	: $(this).width() * ratio
+			,'height'	: $(this).height() * ratio
+		   });
 		});
-	}
-	$('#showid').on('pageinit', function(){
-	  pageResize();
+		$('.ui-content').children('img').bind('load', function(){
+		   var pos	= $(this).position();
+		   $(this).css({
+			 'left'	: pos.left * ratio
+			,'top'	: pos.top * ratio
+			,'width'	: $(this).width() * ratio
+			,'height'	: $(this).height() * ratio
+		   });
+		});
+		$('.ui-content').children('div').each(function(){
+		   var pos	= $(this).position();
+console.log($(this).css('top'))
+console.log(pos);
+		   $(this).css({
+			 'left'	: pos.left * ratio
+			,'top'	: pos.top * ratio
+			,'font-size'	: parseInt($(this).css('font-size')) * ratio + 'px'
+		   });
+		});
 	});
-	pageResize();
   });
   </script>
 
