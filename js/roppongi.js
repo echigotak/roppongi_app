@@ -1,7 +1,8 @@
 /*** 設定 ***/
 // jp.bygc.roppongiclub
 var senderID = "847766150620";
-var roppongi_host = "http://spynk.com/sample/roppongi/reg.php";
+var roppongi_host	= "http://spynk.com/sample/roppongi/reg.php";
+var roppongi_member	= "http://spynk.com/sample/roppongi/member.php";
 
 var utility = {
     dataSet: function(key, value) {
@@ -15,18 +16,24 @@ var utility = {
 }
 
 var roppongi = {
-   data: null
+   data: {}
   ,init: function() {
 	document.addEventListener('deviceready', roppongi.onDeviceReady, true);
    }
   ,onDeviceReady: function() {
 	navigator.splashscreen.hide();
+	$('#kaiinsyou_btn').on('click',function(){ roppongi.submit(); });
+  }
+  ,submit: function() {
 	this.data = utility.dataGet("roppongi");
+	loginpage.getID(roppongi.set);
+	/*
 	if (!this.data) {
 	  loginpage.getID(roppongi.set);
 	} else {
 	  this.showID();
 	}
+	*/
   }
   ,set: function(data) {
 	roppongi.data = data;
@@ -34,12 +41,19 @@ var roppongi = {
 	roppongi.showID();
   }
   ,showID: function() {
+	$.mobile.loading('show');
+	location.href = roppongi_member
+	  + '?id=' + this.data.id
+	  + '&uuid=' + this.data.uuid
+	  + '&mode=' + 'uuid_certificate'
+	/*
 	$('#kaiin_id').html(roppongi.data.id);
 	$.mobile.loading('show');
 	setTimeout(function(){ 
 	  $.mobile.loading('hide');
 	  $.mobile.changePage("#showid", { transition: "slide"})
 	} ,1000);
+	*/
   }
 }
 
@@ -75,7 +89,7 @@ var loginpage = {
 	notif.getNotificationID();
     }
    ,registrationSuccess: function( regid, platform) {
-	loginpage.showStatus('RegIDを取得しました。');
+	//loginpage.showStatus('RegIDを取得しました。');
 	loginpage.registerWithServer( device.uuid, regid, platform)
     }
    ,registerWithServer: function( uuid, regid, platform) {
@@ -97,7 +111,7 @@ var loginpage = {
 		//for (v in data) loginpage.showStatus(v +'::'+data[v]);
 		switch (data.code) {
 		  case 'success':
-			loginpage.showStatus('サーバーにRegIDを保存しました。');
+			//loginpage.showStatus('サーバーにRegIDを保存しました。');
 			loginpage.cb({
 			   'id'		: data.id
 			  ,'uuid'	: uuid
@@ -139,9 +153,9 @@ var notif = {
     } 
   } // getNotificationID
  ,onNotificationGCM: function(e) {
-	loginpage.showStatus('GCMからの通知を取得しました。');
+	//loginpage.showStatus('GCMからの通知を取得しました。');
 	//loginpage.showStatus(e.event);
-	loginpage.showStatus('GCMからの通知を解析しています。');
+	//loginpage.showStatus('GCMからの通知を解析しています。');
 	//for (v in e) loginpage.showStatus(v +'::'+e[v]);
 	switch( e.event )
 	{
