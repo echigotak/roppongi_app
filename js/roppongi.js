@@ -35,9 +35,11 @@ var roppongi = {
   }
   ,showID: function() {
 	$('#kaiin_id').html(roppongi.data.id);
+	$.mobile.loading('show');
 	setTimeout(function(){ 
+	  $.mobile.loading('hide');
 	  $.mobile.changePage("#showid", { transition: "slide"})
-	  } ,2000);
+	} ,1000);
   }
 }
 $(function(){	roppongi.set({id:10001});
